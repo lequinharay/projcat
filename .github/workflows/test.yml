@@ -1,0 +1,25 @@
+name: Go Test
+
+on:
+  push:
+    branches: [trunk]
+  pull_request:
+    branches: [trunk]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: 'go.mod'
+          cache-dependency-path: 'go.sum'
+
+      - name: Run Tests
+        run: go test -v ./...
+permissions:
+  contents: read
